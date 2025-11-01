@@ -11,7 +11,7 @@ import {
 } from "../controllers/tasks.controller.js";
 
 // Routes
-router.route("/").get(getAllTasks).post(newTask);
-router.route("/:id").get(getSingleTask).patch(updateTask).delete(deleteTask);
+router.route("/:userId").get(getAllTasks).post(newTask);
+router.route("/:id/:userId").get(getSingleTask).patch(updateTask).delete(deleteTask);
 
 export default router;
