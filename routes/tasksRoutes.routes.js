@@ -2,6 +2,7 @@ import express from "express";
 const router = express.Router();
 
 // Importing controllers using ES Module syntax
+import { verifyToken } from "../middlewares/auth.js";
 import {
   getAllTasks,
   newTask,
@@ -11,7 +12,11 @@ import {
 } from "../controllers/tasks.controller.js";
 
 // Routes
-router.route("/:userId").get(getAllTasks).post(newTask);
-router.route("/:id/:userId").get(getSingleTask).patch(updateTask).delete(deleteTask);
+router.route("/").get(verifyToken, getAllTasks).post(verifyToken, newTask);
+router
+  .route("/:id")
+  .get(verifyToken, getSingleTask)
+  .patch(verifyToken, updateTask)
+  .delete(verifyToken, deleteTask);
 
 export default router;

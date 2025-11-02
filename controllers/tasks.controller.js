@@ -3,8 +3,8 @@ import User from "../models/user.models.js";
 
 export const getAllTasks = async (req, res) => {
   try {
-
-    const { userId } = req.params;
+    
+    const userId = req.user.id;
 
     const user = await User.findById(userId);
     if (!user) {
@@ -31,7 +31,7 @@ export const getAllTasks = async (req, res) => {
 
 export const newTask = async (req, res) => {
   try {
-    const { userId } = req.params;
+    const userId = req.user.id;
     //taking taskname and description as inputs
     const { taskName, taskDescription } = req.body;
 
@@ -64,7 +64,7 @@ export const getSingleTask = async (req, res) => {
   try {
     //taking taskId from params
     const { id } = req.params;
-    const { userId } = req.params;
+    const userId = req.user.id;
 
     const user = await User.findById(userId);
     if (!user) {
@@ -99,7 +99,7 @@ export const updateTask = async (req, res) => {
   try {
     //taking taskId and userId from params
     const { id } = req.params;
-    const { userId } = req.params;
+    const userId = req.user.id;
 
     const user = await User.findById(userId);
     if (!user) {
@@ -142,7 +142,7 @@ export const deleteTask = async (req, res) => {
   try {
     //taking taskId from params
     const { id } = req.params;
-    const { userId } = req.params;
+    const userId = req.user.id;
 
     const user = await User.findById(userId);
     if (!user) {
