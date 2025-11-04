@@ -9,10 +9,15 @@ import {
   getSingleTask,
   updateTask,
   deleteTask,
+  deleteAllTasks,
 } from "../controllers/tasks.controller.js";
 
 // Routes
-router.route("/").get(verifyToken, getAllTasks).post(verifyToken, newTask);
+router
+  .route("/")
+  .get(verifyToken, getAllTasks)
+  .post(verifyToken, newTask)
+  .delete(verifyToken, deleteAllTasks);
 router
   .route("/:id")
   .get(verifyToken, getSingleTask)
