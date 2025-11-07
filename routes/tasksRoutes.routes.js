@@ -10,6 +10,7 @@ import {
   updateTask,
   deleteTask,
   deleteAllTasks,
+  updateTaskName,
 } from "../controllers/tasks.controller.js";
 
 // Routes
@@ -22,6 +23,7 @@ router
   .route("/:id")
   .get(verifyToken, getSingleTask)
   .patch(verifyToken, updateTask)
-  .delete(verifyToken, deleteTask);
-
+  .delete(verifyToken, deleteTask)
+  
+router.route("/:id/taskName").patch(verifyToken, updateTaskName);
 export default router;
