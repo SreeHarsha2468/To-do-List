@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 import userRoutes from "./routes/userRoutes.routes.js";
 import tasksRoutes from "./routes/tasksRoutes.routes.js";
+import categoryRoutes from "./routes/category.routes.js"
 
 dotenv.config();
 
@@ -18,5 +19,6 @@ mongoose
 
 app.use("/api/User", userRoutes);
 app.use("/api/Tasks", tasksRoutes);
+app.use("/api/Categories", categoryRoutes);
 
 app.listen(port, () => console.log(`Server running on port ${port}...`));

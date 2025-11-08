@@ -10,23 +10,27 @@ const taskSchema = new mongoose.Schema(
     taskDescription: {
       type: String,
     },
-    completed: {
-      type: Boolean,
-      default: false,
-    },
     priority: {
       type: String,
       enum: ["Low", "Medium", "High"],
       default: "Low",
     },
-    createdAt: {
-      type: Date,
-      default: null,
+    completed: {
+      type: Boolean,
+      default: false,
     },
     user: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
       required: true,
+    },
+    category: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Category",
+    },
+    createdAt: {
+      type: Date,
+      default: null,
     },
   },
   { timestamps: true }

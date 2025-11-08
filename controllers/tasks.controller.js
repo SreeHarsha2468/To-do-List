@@ -44,7 +44,7 @@ export const newTask = async (req, res) => {
     const newTask = new Task({
       taskName,
       taskDescription,
-      user,
+      userId,
     });
 
     //saving in DB
@@ -146,7 +146,7 @@ export const deleteTask = async (req, res) => {
     }
 
     //deleting Task
-    const task = await Task.findByIdAndDelete(id);
+    const task = await Task.findById(id);
     //checking if task is present in DB or no
     if (!task) {
       return res.json({ message: "Task Not Found", success: false });
@@ -157,7 +157,8 @@ export const deleteTask = async (req, res) => {
         .status(401)
         .json({ message: "Task Not Found", success: false });
     }
-
+    
+    await Task.findByIdAndDelete(id);
     return res
       .status(200)
       .json({ message: "Task Deleted Successfully", success: true, task });
