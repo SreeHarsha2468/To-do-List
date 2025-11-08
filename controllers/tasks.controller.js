@@ -111,9 +111,7 @@ export const updateTask = async (req, res) => {
     }
 
     if (task.user != userId) {
-      return res
-        .status(401)
-        .json({ message: "Unauthorized", success: false });
+      return res.status(401).json({ message: "Unauthorized", success: false });
     }
 
     //condition for updating task completed
@@ -187,23 +185,29 @@ export const deleteAllTasks = async (req, res) => {
 export const updateTaskName = async (req, res) => {
   try {
     const userId = req.user.id;
-    const { id } = req.params; 
-    const { newName } = req.body; 
+    const { id } = req.params;
+    const { newName } = req.body;
 
     if (!id) {
-      return res.status(404).json({ message: "Task not found", success: false });
+      return res
+        .status(404)
+        .json({ message: "Task not found", success: false });
     }
 
     if (!newName || newName.trim() === "") {
-      return res.status(400).json({ message: "Enter a valid task name", success: false });
+      return res
+        .status(400)
+        .json({ message: "Enter a valid task name", success: false });
     }
 
     const task = await Task.findById(id);
     if (!task) {
-      return res.status(404).json({ message: "Task not found", success: false });
+      return res
+        .status(404)
+        .json({ message: "Task not found", success: false });
     }
 
-    if (task.user!=userId) {
+    if (task.user != userId) {
       return res.status(403).json({ message: "Unauthorized", success: false });
     }
 
@@ -217,6 +221,36 @@ export const updateTaskName = async (req, res) => {
     });
   } catch (error) {
     console.error(error);
+    return res.status(500).json({ message: error.message, success: false });
+  }
+};
+
+export const updatePriority = async (req, res) => {
+  try {
+    const userId = req.user.id;
+    const { id } = req.params;
+
+    const {priority} = req.body;
+
+    const task = await Task.findById(id);
+    if (!task) {
+      return res
+        .status(401)
+        .json({ message: "Task Not Found", success: false });
+    }
+
+    if (task.user != userId) {
+      return res.status(401).json({ message: "Unauthorized", success: false });
+    }
+
+    task.priority = priority;
+
+    await task.save();
+
+    return res
+      .status(200)
+      .json({ message: "Priority Updated", success: true, task});
+  } catch (error) {
     return res.status(500).json({ message: error.message, success: false });
   }
 };

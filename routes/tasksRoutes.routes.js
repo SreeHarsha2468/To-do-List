@@ -11,6 +11,7 @@ import {
   deleteTask,
   deleteAllTasks,
   updateTaskName,
+  updatePriority,
 } from "../controllers/tasks.controller.js";
 
 // Routes
@@ -26,4 +27,6 @@ router
   .delete(verifyToken, deleteTask)
   
 router.route("/:id/taskName").patch(verifyToken, updateTaskName);
+router.patch("/:id/updatePriority", verifyToken, updatePriority)
+
 export default router;
